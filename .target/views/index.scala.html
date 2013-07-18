@@ -1,0 +1,21 @@
+
+@main(null) {
+    
+    @if(flash.containsKey("error")) {
+        
+        <div class="alert-message error">
+            <p>
+                <strong>Oops!</strong> @flash.get("error")
+            </p>
+        </div>
+        
+    }
+        
+    <div class="alert-message block-message info">
+        <p>
+            <strong>This is the websockets demo for Put-to-light.</strong> 
+            To start, choose a station number and sign in using the top right form.
+        </p>
+    </div>
+    
+}

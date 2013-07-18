@@ -1,0 +1,202 @@
+html, body {
+    background-color: #eee;
+}
+body {
+    padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+}
+.container > footer p {
+    text-align: center; /* center align it with the container */
+}
+.container {
+    width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+}
+
+/* The white background content wrapper */
+.content {
+    background-color: #fff;
+    padding: 20px;
+    margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+    -webkit-border-radius: 0 0 6px 6px;
+       -moz-border-radius: 0 0 6px 6px;
+            border-radius: 0 0 6px 6px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+            box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    min-height: 10px;
+}
+
+/* Page header tweaks */
+.page-header {
+    background-color: #f5f5f5;
+    padding: 20px 20px 10px;
+    margin: -20px -20px 20px;
+}
+
+/* Styles you shouldn't keep as they are for displaying this base example only */
+.content .span10,
+.content .span4 {
+    min-height: 500px;
+}
+
+/* Give a quick and non-cross-browser friendly divider */
+.content .span4 {
+    padding-left: 9px;
+    margin-left: 10px;
+    border-left: 1px solid #eee;
+}
+
+.topbar .btn {
+    border: 0;
+}
+
+.topbar p {
+    color: #888;
+}
+
+#username {
+    width: 200px;
+}
+
+#main {
+    position: relative;
+    overflow: hidden;
+}
+
+#onError, #onChat {
+    display: none;
+}
+
+#messages {
+    position: absolute;
+    bottom: 75px;
+    max-height: 125px;
+    height: 125px;
+    overflow-y: auto;
+    width: 550px;
+    border: 1px solid #f3f3f3;
+}
+
+#talk {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 40px
+}
+
+.message {
+    padding: 4px 0;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    
+}
+
+.message span {
+    width: 70px;
+    overflow: hidden;
+    text-align: right;
+    font-weight: bold;
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    top: -1px;
+}
+
+.message p {
+    display: inline-block;
+    margin: 0;
+    width: 450px;
+}
+
+.message.me {
+    background: #FFC;
+}
+
+.message.join, .message.quit {
+    background: #D9E7FB;
+}
+
+/**  The Clock styles from the comet clock app */
+#clock {
+    display: block;
+    margin: 50px auto;
+    text-align: center;
+}
+
+#clock span {
+    position: relative;
+    font-size: 72px;
+    display: inline-block;
+    height: 40px;
+    background: #222;
+    margin-right: 12px;
+    padding: 15px 10px;
+    color: #ff0000;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 6px;
+    box-shadow: 1px 1px 2px rgba(0,0,0,.3);
+    background-image: linear-gradient(bottom, rgb(59,59,59) 33%, rgb(120,120,120) 70%);
+    background-image: -o-linear-gradient(bottom, rgb(59,59,59) 33%, rgb(120,120,120) 70%);
+    background-image: -moz-linear-gradient(bottom, rgb(59,59,59) 33%, rgb(120,120,120) 70%);
+    background-image: -webkit-linear-gradient(bottom, rgb(59,59,59) 33%, rgb(120,120,120) 70%);
+    background-image: -ms-linear-gradient(bottom, rgb(59,59,59) 33%, rgb(120,120,120) 70%);
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.33, rgb(59,59,59)),
+        color-stop(0.7, rgb(120,120,120))
+    );
+}
+
+#clock span:before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 48%;
+    bottom: 51%;
+    text-indent: -999em;
+    color: #000;
+    background: #000;
+    display: none;
+}
+
+#btnOk {
+    margin-left: auto;
+    margin-right: auto;
+    width: 2em;
+    display: block;
+}
+
+.confirmationButton {
+    -moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
+    box-shadow:inset 0px 1px 0px 0px #f29c93;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100) );
+    background:-moz-linear-gradient( center top, #fe1a00 5%, #ce0100 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fe1a00', endColorstr='#ce0100');
+    background-color:#fe1a00;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #d83526;
+    display:inline-block;
+    color:#ffffff;
+    font-family:Georgia;
+    font-size:22px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #b23e35;
+}.confirmationButton:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00) );
+    background:-moz-linear-gradient( center top, #ce0100 5%, #fe1a00 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce0100', endColorstr='#fe1a00');
+    background-color:#ce0100;
+}.confirmationButton:active {
+    position:relative;
+    top:1px;
+}

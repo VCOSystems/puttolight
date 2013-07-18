@@ -1,0 +1,160 @@
+@(username: String)
+
+@main(username) {
+    
+    <div class="page-header">
+        <h1>STATION @username</small></h1>
+    </div>
+    
+    <div id="onError" class="alert-message error">
+        <p>
+            <strong>Oops!</strong> <span></span>
+        </p>
+    </div>
+    
+    <div id="onChat" class="row">
+        <div class="span10" id="main">
+            <h1 id="clock"></h1>
+            <div id="btnOk" class="confirmationButton" style="display: none;">Ok</div>
+            <div id="messages">
+            </div>
+            <textarea id="talk"></textarea>
+        </div>
+        <div class="span4">
+            <h2>Stations Online</h2>
+            <ul id="members">
+            </ul>
+        </div>
+    </div>
+    
+    <script type="text/javascript" charset="utf-8">
+    
+        $(function() {
+            var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
+	        var chatSocket = new WS("@routes.Application.chat(username).webSocketURL(request)")
+            
+            var sendMessage = function() {
+                chatSocket.send(JSON.stringify(
+                    {text: $("#talk").val()}
+                ))
+                $("#talk").val('')
+            }
+            
+            var sendStatus = function() {
+                chatSocket.send(JSON.stringify(
+                    {status: 'clear',
+                     command: 'ok'}
+                ))
+                $("#talk").val('')
+            }
+            
+            var receiveEvent = function(event) {
+                
+                var data = JSON.parse(event.data)
+                
+                // Handle errors
+                if(data.error) {
+                    chatSocket.close()
+                    $("#onError span").text(data.error)
+                    $("#onError").show()
+                    return
+                } else {
+                    $("#onChat").show()
+                }
+                
+                // Create the message element
+                var el = $('<div class="message"><span></span><p></p></div>')
+                
+                // If this station's status is being updated by the server
+                if ((data.kind == "update") && data.stationId == '@username') {
+                    // Build the log message that will be displayed
+                    $("p", el).text("Updating my units to: " + data.units)
+                    $('#messages').append(el)
+                    
+                    // If the qty is zero, hide the packing controls
+                    if (data.units && data.units != null) {
+                        if (data.units=="0"){
+                            $('#clock').html('');
+                            $('#btnOk').hide();
+                        }
+                        else {
+                            // Update the ticker
+                            $('#clock').html('<span>' + data.units + '</span>')
+                            // Show to OK button
+                            $('#btnOk').show();
+                        }
+                    }
+                    
+                    
+                }
+                else {
+                    $("span", el).text(data.user)
+                    $("p", el).text(data.message)
+                    $(el).addClass(data.kind)
+                    if(data.user == '@username') $(el).addClass('me')
+                    if ($(el).text().trim().length) {
+                        $('#messages').append(el)
+                    }
+                }
+                
+                // Scroll the messages list to the bottom
+                $("#messages").animate({ scrollTop: $("#messages")[0].scrollHeight}, 250);
+                
+                
+                
+                // Update the members list
+                $("#members").html('') 
+                $(data.members).each(function() {
+                    $("#members").append('<li>' + this + '</li>')
+                })
+                
+                /**
+                var data = JSON.parse(event.data)
+                
+                // Handle errors
+                if(data.error) {
+                    chatSocket.close()
+                    $("#onError span").text(data.error)
+                    $("#onError").show()
+                    return
+                } else {
+                    $("#onChat").show()
+                }
+                
+                // Create the message element
+                var el = $('<div class="message"><span></span><p></p></div>')
+                $("span", el).text(data.user)
+                $("p", el).text(data.message)
+                $(el).addClass(data.kind)
+                if(data.user == '@username') $(el).addClass('me')
+                $('#messages').append(el)
+                
+                // Update the members list
+                $("#members").html('') 
+                $(data.members).each(function() {
+                    $("#members").append('<li>' + this + '</li>')
+                })
+                **/
+            }
+            
+            var handleReturnKey = function(e) {
+                if(e.charCode == 13 || e.keyCode == 13) {
+                    e.preventDefault()
+                    sendMessage();
+                } 
+            }
+            
+            var showButton = function() {
+                $('#btnOk').addClass('confirmationButton').text('OK'); //html(btnImg); 
+            }
+            
+            $("#talk").keypress(handleReturnKey)  
+            $('#btnOk').click(sendStatus);
+            
+            chatSocket.onmessage = receiveEvent
+            
+        })
+    
+    </script>
+    
+}
