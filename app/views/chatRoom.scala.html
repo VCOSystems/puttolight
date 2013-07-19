@@ -92,9 +92,9 @@
                     $("p", el).text(data.message)
                     $(el).addClass(data.kind)
                     if(data.user == '@username') $(el).addClass('me')
-                    if ($(el).text().trim().length) {
+                    //if ($(el).text().trim().length) {
                         $('#messages').append(el)
-                    }
+                    //}
                 }
                 
                 // Scroll the messages list to the bottom
