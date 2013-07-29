@@ -32,7 +32,7 @@ public class BasicAppTests {
                 
              // Log in as Station 1
                 Result room2 = callAction(controllers.routes.ref.Application.chatRoom("2"));
-                assertThat(contentAsString(room2)).contains("STATION 2");
+                assertThat(contentAsString(room2)).contains("STATION 2"); 
             }
     		
     	});
